@@ -126,7 +126,7 @@ gdown 'https://drive.google.com/uc?id=1ZeGE3QNp0QDkKlVu7NF2O-jcvaGSq3Zu'
 ```
 
 - Build Docker image (Upto 20 min)
-at the directory where the Dockerfile is,
+at the `Docker` directory where the Dockerfile is,
 ```bash
 # If CPU
 docker build -t ml_fsi_cpu -f ./TensorFlow_CPU.Dockerfile .
@@ -138,7 +138,6 @@ docker build -t ml_fsi_gpu -f ./TensorFlow_GPU.Dockerfile .
 at the directory where the python script is,
 ```bash
 # At ML_FSI/2D_Cylinder directory
-
 # If CPU
 docker run -it --rm -v $PWD:/tmp -w /tmp ml_fsi_cpu python ./Cylinder2D.py
 # If GPU
