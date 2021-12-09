@@ -42,8 +42,12 @@ sudo usermod -aG docker $USER
 And start new terminal window
 
 - Final test
-```
+```bash
+# Test docker
 docker run hello-world
+
+# Test Tensorflow
+docker run -it tensorflow/tensorflow bash
 ```
 
 ### For GPU version
@@ -75,32 +79,38 @@ sudo systemctl start docker
 ```
 
 - Final test
-```
-docker run --gpus all nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04 nvidia-smi
-```
-If you see something like this, it's a success
-```
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 460.91.03    Driver Version: 460.91.03    CUDA Version: 11.2     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  Quadro RTX 3000...  Off  | 00000000:01:00.0 Off |                  N/A |
-| N/A   77C    P0    65W /  N/A |   5054MiB /  5934MiB |     99%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
+  - Test docker with nvidia gpu
+  ```
+  docker run --gpus all nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04 nvidia-smi
+  ```
+  If you see something like this, it's a success
+  ```
+  +-----------------------------------------------------------------------------+
+  | NVIDIA-SMI 460.91.03    Driver Version: 460.91.03    CUDA Version: 11.2     |
+  |-------------------------------+----------------------+----------------------+
+  | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+  | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+  |                               |                      |               MIG M. |
+  |===============================+======================+======================|
+  |   0  Quadro RTX 3000...  Off  | 00000000:01:00.0 Off |                  N/A |
+  | N/A   77C    P0    65W /  N/A |   5054MiB /  5934MiB |     99%      Default |
+  |                               |                      |                  N/A |
+  +-------------------------------+----------------------+----------------------+
 
-+-----------------------------------------------------------------------------+
-| Processes:                                                                  |
-|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-|        ID   ID                                                   Usage      |
-|=============================================================================|
-+-----------------------------------------------------------------------------+
-```
+  +-----------------------------------------------------------------------------+
+  | Processes:                                                                  |
+  |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+  |        ID   ID                                                   Usage      |
+  |=============================================================================|
+  +-----------------------------------------------------------------------------+
+  ```
 
-## Build and run
+  - Test Tensorflow with gpu
+  ```bash
+  docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
+  ```
+
+## Build and Run
 
 - Clone this repository
 ```
@@ -130,7 +140,7 @@ at the directory where the python script is,
 # At ML_FSI/2D_Cylinder directory
 
 # If CPU
-docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp ml_fsi_cpu python ./Cylinder2D.py
+docker run -it --rm -v $PWD:/tmp -w /tmp ml_fsi_cpu python ./Cylinder2D.py
 # If GPU
 docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp ml_fsi_gpu python ./Cylinder2D.py
 ```
