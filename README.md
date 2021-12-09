@@ -23,7 +23,6 @@ Related repositories,
 # System requirements
 - Ubuntu 20.04
 - (For GPU version) NVIDIA GPU capable of CUDA 11.2 and its drivers
-- Docker
 
 # Installation
 
