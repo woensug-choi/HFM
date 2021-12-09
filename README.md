@@ -1,4 +1,4 @@
-# Studying HFM with TensorFlow
+# Studying Machine Learning with TensorFlow
 
 Repository to study machine learning using Tensorflow. Inspired by HFM
 Related repositories,
@@ -104,13 +104,13 @@ If you see something like this, it's a success
 
 - Clone this repository
 ```
-git clone git@github.com:woensug-choi/HFM.git
+git clone git@github.com:woensug-choi/ML_FSI.git
 ```
-Will clone the https://github.com/woensug-choi/HFM into a directory `HFM`
+Will clone the https://github.com/woensug-choi/ML_FSI into a directory `ML_FSI`
 
 - Get input data
 ```bash
-# At HFM/2D_Cylinder directory
+# At ML_FSI/2D_Cylinder directory
 pip3 install gdown
 gdown 'https://drive.google.com/uc?id=1ZeGE3QNp0QDkKlVu7NF2O-jcvaGSq3Zu'
 ```
@@ -119,18 +119,18 @@ gdown 'https://drive.google.com/uc?id=1ZeGE3QNp0QDkKlVu7NF2O-jcvaGSq3Zu'
 at the directory where the Dockerfile is,
 ```bash
 # If CPU
-docker build -t tensorflow_hfm_cpu -f ./TensorFlow_CPU.Dockerfile .
+docker build -t ml_fsi_cpu -f ./TensorFlow_CPU.Dockerfile .
 # If GPU
-docker build -t tensorflow_hfm_gpu -f ./TensorFlow_GPU.Dockerfile .
+docker build -t ml_fsi_gpu -f ./TensorFlow_GPU.Dockerfile .
 ```
 
 - Run Docker image with a python script
 at the directory where the python script is,
 ```bash
-# At HFM/2D_Cylinder directory
+# At ML_FSI/2D_Cylinder directory
 
 # If CPU
-docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp tensorflow_hfm_cpu python ./Cylinder2D.py
+docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp ml_fsi_cpu python ./Cylinder2D.py
 # If GPU
-docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp tensorflow_hfm_gpu python ./Cylinder2D.py
+docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp ml_fsi_gpu python ./Cylinder2D.py
 ```
