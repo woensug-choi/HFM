@@ -104,7 +104,15 @@ If you see something like this, it's a success
 
 - Clone this repository
 ```
-git clone https://github.com/woensug-choi/HFM.git
+git clone git@github.com:woensug-choi/HFM.git
+```
+Will clone the https://github.com/woensug-choi/HFM into a directory `HFM`
+
+- Get input data
+```bash
+# At HFM/2D_Cylinder directory
+pip3 install gdown
+gdown 'https://drive.google.com/uc?id=1ZeGE3QNp0QDkKlVu7NF2O-jcvaGSq3Zu'
 ```
 
 - Build Docker image (Upto 20 min)
@@ -119,6 +127,8 @@ docker build -t tensorflow_hfm_gpu -f ./TensorFlow_GPU.Dockerfile .
 - Run Docker image with a python script
 at the directory where the python script is,
 ```bash
+# At HFM/2D_Cylinder directory
+
 # If CPU
 docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp tensorflow_hfm_cpu python ./Cylinder2D.py
 # If GPU
