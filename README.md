@@ -1,39 +1,126 @@
-[![DOI](https://zenodo.org/badge/152933799.svg)](https://zenodo.org/badge/latestdoi/152933799)
+# Studying HFM with TensorFlow
 
-# [Hidden Fluid Mechanics](https://maziarraissi.github.io/HFM/)
+Repository to study machine learning using Tensorflow. Inspired by HFM
+Related repositories,
+- PINN : https://maziarraissi.github.io/PINNs/
+- HFM : https://maziarraissi.github.io/HFM/
+- DeepVIV : https://maziarraissi.github.io/DeepVIV/
 
-We present [hidden fluid mechanics](https://science.sciencemag.org/content/367/6481/1026.abstract) (HFM), a physics informed deep learning framework capable of encoding an important class of physical laws governing fluid motions, namely the Navier-Stokes equations. In particular, we seek to leverage the underlying conservation laws (i.e., for mass, momentum, and energy) to infer hidden quantities of interest such as velocity and pressure fields merely from spatio-temporal visualizations of a passive scaler (e.g., dye or smoke), transported in arbitrarily complex domains (e.g., in human arteries or brain aneurysms). Our approach towards solving the aforementioned data assimilation problem is unique as we design an algorithm that is agnostic to the geometry or the initial and boundary conditions. This makes HFM highly flexible in choosing the spatio-temporal domain of interest for data acquisition as well as subsequent training and predictions. Consequently, the predictions made by HFM are among those cases where a pure machine learning strategy or a mere scientific computing approach simply cannot reproduce. The proposed algorithm achieves accurate predictions of the pressure and velocity fields in both two and three dimensional flows for several benchmark problems motivated by real-world applications. Our results demonstrate that this relatively simple methodology can be used in physical and biomedical problems to extract valuable quantitative information (e.g., lift and drag forces or wall shear stresses in arteries) for which direct measurements may not be possible.
+# Contents
+<!-- TOC generated with https://github.com/ekalinin/github-markdown-toc -->
+<!--
+ cat fls_model_standalone.md | ./gh-md-toc -
+-->
 
-For more information, please refer to the following: (https://maziarraissi.github.io/HFM/)
+* [System requirements](#System-requirements)
+* [Installation](#Installation)
+  * [For CPU Version](#For-CPU-Version)
+  * [For GPU Version](#For-GPU-Version)
+* [Build and Run](#Build-and-Run)
 
-  - Raissi, Maziar, Alireza Yazdani, and George Em Karniadakis. "[Hidden fluid mechanics: Learning velocity and pressure fields from flow visualizations](https://science.sciencemag.org/content/367/6481/1026.abstract)." Science 367.6481 (2020): 1026-1030.
+***
 
-  - Raissi, Maziar, Alireza Yazdani, and George Em Karniadakis. "[Hidden Fluid Mechanics: A Navier-Stokes Informed Deep Learning Framework for Assimilating Flow Visualization Data](https://arxiv.org/abs/1808.04327)." arXiv preprint arXiv:1808.04327 (2018).
+## System requirements
+- Ubuntu 20.04
+- (For GPU version) NVIDIA GPU capable of CUDA 11.2 and its drivers
+- Docker
 
-## Note
+## Installation
 
-The required data (to be copied in the Data directory) and some Matlab scripts (to be copied in the Figures directory) for plotting purposes are provided in the following link:
+### For CPU version
 
-   - [Data and Figures](https://bit.ly/2NRB65U)
+- Docker
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
+```
+And start new terminal window
 
-In addition to the Data and Figures directories, the Results folder is currently empty and will be automatically populated after running the corresponding examples provided in the Source and Scripts directories.
+- Final test
+```
+docker run hello-world
+```
 
-## Citation
+### For GPU version
+- Docker
+Install docker as CPU version installation
 
-    @article{raissi2020hidden,
-      title={Hidden fluid mechanics: Learning velocity and pressure fields from flow visualizations},
-      author={Raissi, Maziar and Yazdani, Alireza and Karniadakis, George Em},
-      journal={Science},
-      volume={367},
-      number={6481},
-      pages={1026--1030},
-      year={2020},
-      publisher={American Association for the Advancement of Science}
-    }
+- NVIDIA drivers
+Choose `[proprietrary, tested]` driver on Additional Derivers at Software & Updates.
+For example, `nvidia-driver-460`
 
-    @article{raissi2018hidden,
-      title={Hidden Fluid Mechanics: A Navier-Stokes Informed Deep Learning Framework for Assimilating Flow Visualization Data},
-      author={Raissi, Maziar and Yazdani, Alireza and Karniadakis, George Em},
-      journal={arXiv preprint arXiv:1808.04327},
-      year={2018}
-    }
+To test the correct installation,
+```
+nvidia-smi
+```
+
+- Install NVIDIA docker container runtime
+```
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
+    sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+sudo apt-get update
+sudo apt-get install nvidia-container-runtime
+```
+And restart docker
+```
+sudo systemctl stop docker
+sudo systemctl start docker
+```
+
+- Final test
+```
+docker run --gpus all nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04 nvidia-smi
+```
+If you see something like this, it's a success
+```
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.91.03    Driver Version: 460.91.03    CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Quadro RTX 3000...  Off  | 00000000:01:00.0 Off |                  N/A |
+| N/A   77C    P0    65W /  N/A |   5054MiB /  5934MiB |     99%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
++-----------------------------------------------------------------------------+
+```
+
+## Build and run
+
+- Clone this repository
+```
+git clone https://github.com/woensug-choi/HFM.git
+```
+
+- Build Docker image (Upto 20 min)
+at the directory where the Dockerfile is,
+```bash
+# If CPU
+docker build -t tensorflow_hfm_cpu -f ./TensorFlow_CPU.Dockerfile .
+# If GPU
+docker build -t tensorflow_hfm_gpu -f ./TensorFlow_GPU.Dockerfile .
+```
+
+- Run Docker image with a python script
+at the directory where the python script is,
+```bash
+# If CPU
+docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp tensorflow_hfm_cpu python ./Cylinder2D.py
+# If GPU
+docker run -it --rm --gpus all -v $PWD:/tmp -w /tmp tensorflow_hfm_gpu python ./Cylinder2D.py
+```
