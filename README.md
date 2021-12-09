@@ -20,14 +20,14 @@ Related repositories,
 
 ***
 
-## System requirements
+# System requirements
 - Ubuntu 20.04
 - (For GPU version) NVIDIA GPU capable of CUDA 11.2 and its drivers
 - Docker
 
-## Installation
+# Installation
 
-### For CPU version
+## For CPU version
 
 - Docker
 ```bash
@@ -50,7 +50,7 @@ docker run hello-world
 docker run -it tensorflow/tensorflow bash
 ```
 
-### For GPU version
+## For GPU version
 - Docker
 Install docker as CPU version installation
 
@@ -110,7 +110,7 @@ sudo systemctl start docker
     docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
     ```
 
-## Build and Run
+# Build and Run
 
 - Clone this repository
 ```
