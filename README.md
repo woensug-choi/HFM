@@ -80,35 +80,35 @@ sudo systemctl start docker
 
 - Final test
   - Test docker with nvidia gpu
-  ```
-  docker run --gpus all nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04 nvidia-smi
-  ```
-  If you see something like this, it's a success
-  ```
-  +-----------------------------------------------------------------------------+
-  | NVIDIA-SMI 460.91.03    Driver Version: 460.91.03    CUDA Version: 11.2     |
-  |-------------------------------+----------------------+----------------------+
-  | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-  | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-  |                               |                      |               MIG M. |
-  |===============================+======================+======================|
-  |   0  Quadro RTX 3000...  Off  | 00000000:01:00.0 Off |                  N/A |
-  | N/A   77C    P0    65W /  N/A |   5054MiB /  5934MiB |     99%      Default |
-  |                               |                      |                  N/A |
-  +-------------------------------+----------------------+----------------------+
+    ```
+    docker run --gpus all nvidia/cuda:11.2.0-cudnn8-runtime-ubuntu20.04 nvidia-smi
+    ```
+    If you see something like this, it's a success
+    ```
+    +-----------------------------------------------------------------------------+
+    | NVIDIA-SMI 460.91.03    Driver Version: 460.91.03    CUDA Version: 11.2     |
+    |-------------------------------+----------------------+----------------------+
+    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+    |                               |                      |               MIG M. |
+    |===============================+======================+======================|
+    |   0  Quadro RTX 3000...  Off  | 00000000:01:00.0 Off |                  N/A |
+    | N/A   77C    P0    65W /  N/A |   5054MiB /  5934MiB |     99%      Default |
+    |                               |                      |                  N/A |
+    +-------------------------------+----------------------+----------------------+
 
-  +-----------------------------------------------------------------------------+
-  | Processes:                                                                  |
-  |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-  |        ID   ID                                                   Usage      |
-  |=============================================================================|
-  +-----------------------------------------------------------------------------+
-  ```
+    +-----------------------------------------------------------------------------+
+    | Processes:                                                                  |
+    |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+    |        ID   ID                                                   Usage      |
+    |=============================================================================|
+    +-----------------------------------------------------------------------------+
+    ```
 
   - Test Tensorflow with gpu
-  ```bash
-  docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
-  ```
+    ```bash
+    docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
+    ```
 
 ## Build and Run
 
