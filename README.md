@@ -116,6 +116,13 @@ sudo systemctl start docker
     docker run --gpus all -it tensorflow/tensorflow:latest-gpu bash
     ```
 
+- For GPU status monitoring
+```
+git clone https://github.com/Syllo/nvtop.git && cd nvtop
+sudo docker build --tag nvtop .
+sudo docker run -it --rm --runtime=nvidia --gpus=all --pid=host nvtop
+```
+
 # Build and Run
 
 - Clone this repository
